@@ -18,7 +18,7 @@ abstract class RemoteDataSource {
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final http.Client client;
-  String baseUrl = "http://localhost:3000";
+  String baseUrl = "http://192.168.43.100:8000";
 
   RemoteDataSourceImpl({required this.client});
 
@@ -26,7 +26,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<List<NoteModel>> getAllNotes() async {
     final response = await http.get(Uri.parse('$baseUrl/notes'),
         headers: {'Content-type': 'Application/json'});
-
+       print( "res : ${response.body}");
     if (response.statusCode == 200) {
       final List decodedJson = json.decode(response.body) as List;
       final List<NoteModel> notesModel = decodedJson
